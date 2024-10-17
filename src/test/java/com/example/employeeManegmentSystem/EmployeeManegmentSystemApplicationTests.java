@@ -8,6 +8,7 @@ class EmployeeManegmentSystemApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
