@@ -1,8 +1,10 @@
 package com.example.employeeManegmentSystem.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
-
 
 @Getter
 @Setter
@@ -14,29 +16,36 @@ import lombok.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
+    @NotNull(message = "First name cannot be null")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "First name must be a string and contain only letters")
     @Column(name = "FirstName", nullable = false)
-    private String FirstName;
+    private String firstName;
 
+    @NotNull(message = "Last name cannot be null")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name must be a string and contain only letters")
     @Column(name = "LastName", nullable = false)
-    private String LastName;
+    private String lastName;
 
-    @Column(name = "Email")
-    private String Email;
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Email should be valid")
+    @Column(name = "Email", nullable = false)
+    private String email;
+
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Department must be a string and contain only letters")
     @Column(name = "department")
     private String department;
 
-    @Column(name = "Position ")
-    private String Position;
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Position must be a string and contain only letters")
+    @Column(name = "Position")
+    private String position;
 
-    public Employee(String FirstName, String lastName, String Email, String department, String Position) {
-        this.FirstName = FirstName;
-        this.LastName = lastName;
-        this.Email = Email;
+    public Employee(String firstName, String lastName, String email, String department, String position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.department = department;
-        this.Position = Position;
+        this.position = position;
     }
-
 }
-
