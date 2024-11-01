@@ -5,8 +5,8 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/Features",
-        glue = "your.package.path.stepDefinitions",
+        features = "src/test/resources/features",
+        glue = "package com.example.employeeManegmentSystem;",
         plugin = {"pretty", "html:target/cucumber-reports"},
         monochrome = true
 )
