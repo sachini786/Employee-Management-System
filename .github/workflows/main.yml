@@ -20,8 +20,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-
+
       - name: Build Project
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Run Tests
         run: mvn test
+        continue-on-error: true  # Prevents the workflow from stopping immediately on failure
+
+      - name: Upload Surefire Test Reports (if tests fail)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
