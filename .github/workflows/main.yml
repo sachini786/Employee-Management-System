@@ -34,6 +34,14 @@ jobs:
         run: mvn test
         continue-on-error: true  # Prevents the workflow from stopping immediately on failure
 
+      - name: Display Test Report Logs
+        if: failure()
+        run: |
+          echo "==== Surefire Test Report Summary ===="
+          cat target/surefire-reports/surefire-summary.txt || echo "No surefire-summary.txt found"
+          echo "==== Listing Failed Test Reports ===="
+          ls -l target/surefire-reports/ || echo "No Surefire reports found"
+
       - name: Upload Surefire Test Reports (if tests fail)
         if: failure()
         uses: actions/upload-artifact@v3
